@@ -1,0 +1,19 @@
+{% load socialaccount%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{#{% if user.is_authenticated %}#}
+<a class="nav-item nav-link" href="{% provider_login_url 'google' %}">Login</a>
+<form method="POST">
+{{d_form}}
+{% csrf_token %}
+<button type="submit">SUBMIT</button>
+</form>
+
+
+</body>
+</html>

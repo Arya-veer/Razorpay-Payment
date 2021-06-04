@@ -1,0 +1,41 @@
+{% load socialaccount %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{%if d_form %}
+<form method="POST">
+    {% csrf_token %}
+    {{d_form}}
+<button type="submit">SUBMIT</button>
+</form>
+{% endif %}
+{% if response  %}
+    <h2>Are you Sure you want to pay {{ response.currency }} {{ amount }}?</h2>
+<form action="/success/" method="POST">
+    <script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        data-key="rzp_test_dLoSwzMdtw8waj"
+        data-amount={{response.amount}}
+        data-currency={{response.currency}}
+        data-order_id={{response.id}}
+        data-buttontext="Pay"
+        data-name="Payment Gateway"
+        data-description=""
+        data-image=""
+        data-prefill.name={{request.user.username}}
+        data-prefill.email={{request.user.email}}
+        data-theme.color="#F37254"
+    ></script>
+    <input type="hidden" custom="Hidden Element" name="hidden">
+    </form>
+{% endif %}
+{% comment %} <a href="{% provider_login_url 'google' %}">Login</a> {% endcomment %}
+<a  href="{% url 'signout' %}">Logout</a>
+</body>
+</html>
