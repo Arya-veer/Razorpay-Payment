@@ -112,7 +112,7 @@ def payment_success(request):
         current_order.save()
 
         
-        return HttpResponse("Done payment hurrey!")
+        return redirect(request,template_name="success-transaction")
 
 
 def home_page(request):
