@@ -1,4 +1,5 @@
 import os
+from .keyconfig import *
 
 from django.contrib.auth.decorators import login_required
 
@@ -52,7 +53,7 @@ def payment(request):
             
             if d_form.is_valid:
                 x=1
-                client = razorpay.Client(auth=('rzp_test_dLoSwzMdtw8waj','kJHBnw8G5bbdHehi8E0ZXZpN') )
+                client = razorpay.Client(auth=(razorpaykey, razorpaysecret))
                 response = client.order.create({'amount':amount,'currency':'INR','payment_capture':1})
                 print(response)
                 order_id=response['id']
@@ -64,7 +65,8 @@ def payment(request):
                 context =  {
                 'response':response,
                 'amount':amount/100,
-                'x':x
+                'x':x,
+                'razorpaykey':os.getenv('razorpaykey')
 
                 }
 
@@ -112,7 +114,7 @@ def payment_success(request):
         current_order.save()
 
         
-        return redirect(request,template_name="success-transaction")
+    return HttpResponse("<h1>Done payment hurray</h1><a href='/'>Home</a>")
 
 
 def home_page(request):

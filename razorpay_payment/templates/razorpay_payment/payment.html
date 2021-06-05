@@ -18,9 +18,10 @@
 {% if response  %}
     <h2>Are you Sure you want to pay {{ response.currency }} {{ amount }}?</h2>
 <form action="/success/" method="POST">
+{%csrf_token%}
     <script
         src="https://checkout.razorpay.com/v1/checkout.js"
-        data-key="rzp_test_dLoSwzMdtw8waj"
+        data-key={{razorpaykey}}
         data-amount={{response.amount}}
         data-currency={{response.currency}}
         data-order_id={{response.id}}

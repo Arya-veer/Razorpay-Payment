@@ -6,8 +6,10 @@
 </head>
 <body>
 {% for transaction in transactions%}
+
 <p>Order ID: {{ transaction.order_id }} </p>
 <div>Amount: {{ transaction.amount }}</div>
+
 {% endfor %}
 </body>
 </html>
